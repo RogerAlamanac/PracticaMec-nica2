@@ -1,34 +1,42 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public BallController ballController;
-    public Transform holeObject;
+    public Transform bola;
+    public Transform hoyo;
+    public float radioHoyo = 0.4f;
+    public float velocidadMinima = 0.1f;
+    public float tiempoEsperaReinicio = 2f;
 
-    public float stepTime = 0.01f;
-    public float totalTime = 20f;
-    public float holeRadius = 0.5f;
-    public float maxHoleSpeed = 0.5f;
-
-    private float time = 0f;
-    private bool gameEnded = false;
+    private BallPhysics ballPhysics;
+    private bool victoriaMostrada = false;
 
     void Start()
     {
-        ballController.InitBall();
+        ballPhysics = bola.GetComponent<BallPhysics>();
     }
 
     void Update()
     {
-        if (gameEnded || time >= totalTime) return;
+        if (victoriaMostrada) return;
 
-        ballController.Step(stepTime);
-        time += stepTime;
-
-        if (ballController.IsStoppedNear(holeObject.position, holeRadius, maxHoleSpeed))
+        if (ballPhysics != null && HoyoAlcanzado())
         {
-            gameEnded = true;
-            Debug.Log("🎯 ¡Victoria! Bola en el hoyo.");
+            victoriaMostrada = true;
+            Debug.Log("¡Victoria! Bola en el hoyo");
+            Invoke(nameof(ReiniciarNivel), tiempoEsperaReinicio);
         }
+    }
+
+    bool HoyoAlcanzado()
+    {
+        float distancia = Vector3.Distance(bola.position, hoyo.position);
+        return distancia <= radioHoyo && !ballPhysics.IsMoving();
+    }
+
+    void ReiniciarNivel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

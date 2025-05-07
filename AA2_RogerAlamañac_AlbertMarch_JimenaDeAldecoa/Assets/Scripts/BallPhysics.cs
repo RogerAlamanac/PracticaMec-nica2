@@ -1,29 +1,71 @@
 using UnityEngine;
 
-public static class BallPhysics
+public class BallPhysics : MonoBehaviour
 {
-    public static Vector2 Gravity = new Vector2(0, -9.81f);
-    public static float AirDensity = 1.2f;
-    public static float DragCoefficient = 0.47f;
+    // Estado de la bola
+    private Vector3 velocity;
+    private float radius = 0.1f;
+    private float mass = 1f;
 
-    public static (Vector2, Vector2) EulerStep(Vector2 position, Vector2 velocity, float stepTime, float mass, float radius, int terrainType)
+    // Fricción
+    public enum Terreno { Cesped, Hielo, Arena }
+    public Terreno tipoTerreno = Terreno.Cesped;
+    private float coeficienteFriccion;
+
+    // Tiempo
+    private float stepTime = 0.02f;
+
+    void Start()
     {
-        float friction = TerrainManager.GetFriction(terrainType);
-        Vector2 frictionForce = -friction * velocity.normalized * mass * Gravity.magnitude;
+        velocity = Vector3.zero;
+        ActualizarFriccion();
+    }
 
-        Vector2 airResistance = Vector2.zero;
-        if (position.y > 1f)
+    void Update()
+    {
+        SimularMovimiento();
+    }
+
+    void SimularMovimiento()
+    {
+        if (velocity.magnitude < 0.01f)
         {
-            float area = Mathf.PI * radius * radius;
-            airResistance = -0.5f * AirDensity * velocity.magnitude * velocity * DragCoefficient * area;
+            velocity = Vector3.zero;
+            return;
         }
 
-        Vector2 netForce = mass * Gravity + frictionForce + airResistance;
-        Vector2 acceleration = netForce / mass;
+        // Aplicar fricción al movimiento
+        Vector3 friccion = -coeficienteFriccion * velocity.normalized * mass * 9.81f;
+        Vector3 aceleracion = friccion / mass;
 
-        Vector2 newVelocity = velocity + acceleration * stepTime;
-        Vector2 newPosition = position + velocity * stepTime;
-
-        return (newPosition, newVelocity);
+        // Integración de Euler
+        velocity += aceleracion * stepTime;
+        transform.position += velocity * stepTime;
     }
+
+    void ActualizarFriccion()
+    {
+        switch (tipoTerreno)
+        {
+            case Terreno.Cesped:
+                coeficienteFriccion = 0.4f;
+                break;
+            case Terreno.Hielo:
+                coeficienteFriccion = 0.1f;
+                break;
+            case Terreno.Arena:
+                coeficienteFriccion = 0.6f;
+                break;
+        }
+    }
+
+    public void AplicarImpulso(Vector3 direccion, float fuerza)
+    {
+        velocity = direccion.normalized * fuerza;
+    }
+    public bool IsMoving()
+    {
+        return velocity.magnitude > 0.01f;
+    }
+
 }
