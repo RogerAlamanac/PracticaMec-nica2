@@ -1,6 +1,5 @@
 public static class TerrainManager
 {
-    // Devuelve el coeficiente de fricción según tipo de terreno
     public static float GetFriction(int type)
     {
         switch (type)

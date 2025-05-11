@@ -239,7 +239,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623804364}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &623804368
 Transform:
   m_ObjectHideFlags: 0
@@ -249,7 +249,7 @@ Transform:
   m_GameObject: {fileID: 623804364}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 8.7246, y: 0.13061, z: 31.996}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -697,6 +697,7 @@ GameObject:
   - component: {fileID: 2140056280}
   - component: {fileID: 2140056283}
   - component: {fileID: 2140056284}
+  - component: {fileID: 2140056285}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -797,3 +798,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipoTerreno: 0
+--- !u!114 &2140056285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140056277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9793e5c5e8e85be4a8f021378a0847d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  radius: 0.1
+  dragCoefficient: 0.47
+  area: 0.04
+  airDensity: 1.2
+  currentFriction: 0.4
+  maxDragDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
+  isMoving: 1
+  stillTime: 0
+  maxRebounds: 1
+  forceLine: {fileID: 0}

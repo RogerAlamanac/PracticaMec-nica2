@@ -1,39 +1,115 @@
-//using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class BallController : MonoBehaviour
-//{
-//    public Transform ballObject;
+public class BallController : MonoBehaviour
+{
+    public float mass = 1f;
+    public float radius = 0.1f;
+    public float dragCoefficient = 0.47f;
+    public float area = 0.04f;
+    public float airDensity = 1.2f;
+    public float currentFriction = 0.4f;
 
-//    public Vector2 initialPosition = new Vector2(-4, 0);
-//    public Vector2 initialVelocity = new Vector2(10f, 2f);
-//    public float mass = 1f;
-//    public float radius = 0.2f;
-//    public int terrainType = 0;
+    public float maxDragDistance = 1.0f;
 
-//    public Vector2 position;
-//    public Vector2 velocity;
+    public Vector3 velocity;
+    public Vector3 angularVelocity;
+    public Vector3 lastPosition;
+    public bool isMoving = true;
+    public float stillTime = 0f;
 
-//    public void InitBall()
-//    {
-//        position = initialPosition;
-//        velocity = initialVelocity;
-//        ballObject.transform.position = position;
-//    }
+    private Vector3 dragStart;
+    private Camera cam;
 
-//    public void Step(float stepTime)
-//    {
-//        (Vector2 newPos, Vector2 newVel) = BallPhysics.EulerStep(position, velocity, stepTime, mass, radius, terrainType);
+    private int reboundCount = 0;
+    public int maxRebounds = 1;
 
-//        if (Mathf.Abs(newPos.x) >= 5) newVel.x *= -0.8f;
-//        if (Mathf.Abs(newPos.y) >= 3) newVel.y *= -0.8f;
+    public LineRenderer forceLine;
 
-//        position = newPos;
-//        velocity = newVel;
-//        ballObject.transform.position = position;
-//    }
+    void Start()
+    {
+        cam = Camera.main;
+        lastPosition = transform.position;
 
-//    public bool IsStoppedNear(Vector2 holePosition, float holeRadius, float velocityThreshold)
-//    {
-//        return Vector2.Distance(position, holePosition) <= holeRadius && velocity.magnitude < velocityThreshold;
-//    }
-//}
+        if (forceLine != null)
+        {
+            forceLine.positionCount = 3;
+            forceLine.gameObject.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        HandleInput();
+        PhysicsManager.Instance.ApplyForces(this);
+        lastPosition = transform.position;
+    }
+
+    void HandleInput()
+    {
+        if (!isMoving && Input.GetMouseButtonDown(0))
+        {
+            dragStart = GetMouseWorld();
+            if (forceLine != null)
+            {
+                forceLine.positionCount = 3;
+                forceLine.gameObject.SetActive(true);
+            }
+        }
+
+        if (!isMoving && Input.GetMouseButton(0))
+        {
+            Vector3 current = GetMouseWorld();
+            Vector3 dir = dragStart - current;
+
+            if (dir.magnitude > maxDragDistance)
+                dir = dir.normalized * maxDragDistance;
+
+            Vector3 start = transform.position;
+            Vector3 mid = start + dir;
+
+            if (forceLine != null)
+            {
+                forceLine.SetPosition(0, start);
+                forceLine.SetPosition(1, mid);
+                forceLine.SetPosition(2, mid);
+            }
+        }
+
+        if (!isMoving && Input.GetMouseButtonUp(0))
+        {
+            Vector3 dragEnd = GetMouseWorld();
+            Vector3 dir = dragStart - dragEnd;
+
+            if (dir.magnitude > maxDragDistance)
+                dir = dir.normalized * maxDragDistance;
+
+            Vector3 force = dir * 10f;
+            velocity += force / mass;
+            isMoving = true;
+            reboundCount = 0;
+
+            if (forceLine != null)
+                forceLine.gameObject.SetActive(false);
+        }
+    }
+
+    Vector3 GetMouseWorld()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, transform.position.y);
+        float distance;
+        plane.Raycast(ray, out distance);
+        return ray.GetPoint(distance);
+    }
+
+    public void RegisterRebound() => reboundCount++;
+    public int GetReboundCount() => reboundCount;
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+}
