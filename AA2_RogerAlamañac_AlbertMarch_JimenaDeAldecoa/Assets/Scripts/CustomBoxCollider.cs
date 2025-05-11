@@ -7,8 +7,8 @@ public class CustomBoxCollider : MonoBehaviour
     public enum MaterialType
     {
         Wall,           // e = 0.4, µ = 0.5
-        Rubber,         // e = 0.8, quasi-elastic
-        Foam,           // e = 0.2, inelastic
+        Rubber,         // e = 0.8, quasi-elàstic
+        Foam,           // e = 0.2, inelàstic
         SandInelastic,  // e = 0.2, µ = 0.6
         Grass,          // µ = 0.4
         Ice,            // µ = 0.1
@@ -20,11 +20,12 @@ public class CustomBoxCollider : MonoBehaviour
     public Vector3 center = Vector3.zero;
     public Vector3 size = Vector3.one;
 
-    public float restitution = 0.8f;
-    public float friction = 0.5f;
+    public float restitution = 0.8f; // Coeficient de restitució, quant rebota
+    public float friction = 0.5f;    // Coeficient de fricció
 
     public bool showGizmo = true;
 
+    // Retorna el bounding box (AABB) amb escala global aplicada
     public Bounds GetBounds()
     {
         Vector3 scaledSize = new Vector3(
@@ -36,6 +37,8 @@ public class CustomBoxCollider : MonoBehaviour
         Vector3 worldCenter = transform.position + Vector3.Scale(center, transform.lossyScale);
         return new Bounds(worldCenter, scaledSize);
     }
+
+    // Comprova si un punt està dins del collider
     public bool ContainsPointOBB(Vector3 point)
     {
         Vector3 local = transform.worldToLocalMatrix.MultiplyPoint(point) - center;
@@ -45,6 +48,8 @@ public class CustomBoxCollider : MonoBehaviour
                Mathf.Abs(local.y) <= halfSize.y &&
                Mathf.Abs(local.z) <= halfSize.z;
     }
+
+    // Retorna el punt més proper dins del collider a un punt donat
     public Vector3 GetClosestPointOBB(Vector3 point)
     {
         Matrix4x4 worldToLocal = transform.worldToLocalMatrix;
@@ -60,6 +65,7 @@ public class CustomBoxCollider : MonoBehaviour
         return transform.localToWorldMatrix.MultiplyPoint(clamped + center);
     }
 
+    // Assigna valors predeterminats de fricció i restitució segons el material escollit
     void OnValidate()
     {
         switch (material)
@@ -96,6 +102,7 @@ public class CustomBoxCollider : MonoBehaviour
         }
     }
 
+    // Dibuixa el collider com una caixa a l'editor per visualitzar-lo fàcilment
     void OnDrawGizmos()
     {
         if (!showGizmo) return;
@@ -110,11 +117,11 @@ public class CustomBoxCollider : MonoBehaviour
 
         Vector3 worldCenter = transform.position + transform.rotation * Vector3.Scale(center, transform.lossyScale);
 
-        // Aplica rotació i escala al dibuix del collider
+        // Aplica transformacions de posició i rotació per mostrar el collider correctament
         Matrix4x4 rotationMatrix = Matrix4x4.TRS(worldCenter, transform.rotation, Vector3.one);
         Gizmos.matrix = rotationMatrix;
 
-        Gizmos.DrawWireCube(Vector3.zero, scaledSize);
+        Gizmos.DrawWireCube(Vector3.zero, scaledSize); // Dibuixa la caixa
         Gizmos.matrix = Matrix4x4.identity;
     }
 

@@ -474,6 +474,7 @@ MonoBehaviour:
   offset: {x: 6, y: 4, z: 0}
   smoothSpeed: 0.125
   rotationSpeed: 5
+  initialYaw: 0
 --- !u!1 &610295688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,7 +1106,8 @@ MonoBehaviour:
   lastPosition: {x: 0, y: 0, z: 0}
   isMoving: 1
   stillTime: 0
-  maxRebounds: 1
+  reboundCount: 0
+  maxRebounds: 2
   forceLine: {fileID: 1914118095}
 --- !u!23 &1528336372
 MeshRenderer:

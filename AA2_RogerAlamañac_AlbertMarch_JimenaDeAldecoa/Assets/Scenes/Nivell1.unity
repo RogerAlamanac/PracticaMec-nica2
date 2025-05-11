@@ -1723,7 +1723,8 @@ MonoBehaviour:
   lastPosition: {x: 0, y: 0, z: 0}
   isMoving: 1
   stillTime: 0
-  maxRebounds: 1
+  reboundCount: 0
+  maxRebounds: 2
   forceLine: {fileID: 1914118095}
 --- !u!23 &1528336372
 MeshRenderer:
