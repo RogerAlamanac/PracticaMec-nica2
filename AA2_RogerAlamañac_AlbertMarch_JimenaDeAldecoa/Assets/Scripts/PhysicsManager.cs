@@ -121,7 +121,13 @@ public class PhysicsManager : MonoBehaviour
                     Vector3 vTangent = ball.velocity - vNormal;
                     Vector3 rebound = -vNormal * col.restitution;
                     ball.velocity = vTangent + rebound;
-                    ball.RegisterRebound();
+                    if (col.material == CustomBoxCollider.MaterialType.Wall ||
+                    col.material == CustomBoxCollider.MaterialType.Rubber ||
+                    col.material == CustomBoxCollider.MaterialType.Foam ||
+                    col.material == CustomBoxCollider.MaterialType.SandInelastic)
+                    {
+                        ball.reboundCount++;
+                    }
                 }
             }
         }

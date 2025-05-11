@@ -22,8 +22,8 @@ public class BallController : MonoBehaviour
     private Vector3 dragStart;
     private Camera cam;
 
-    private int reboundCount = 0;
-    public int maxRebounds = 1;
+    public int reboundCount = 0;
+    public int maxRebounds = 2;
 
     public LineRenderer forceLine;
 
@@ -37,6 +37,7 @@ public class BallController : MonoBehaviour
             forceLine.positionCount = 3;
             forceLine.gameObject.SetActive(false);
         }
+        reboundCount = 0;
     }
 
     void Update()
@@ -92,7 +93,6 @@ public class BallController : MonoBehaviour
             Vector3 force = dir * 10f;
             velocity += force / mass;
             isMoving = true;
-            reboundCount = 0;
 
             if (forceLine != null)
                 forceLine.gameObject.SetActive(false);
@@ -107,9 +107,6 @@ public class BallController : MonoBehaviour
         plane.Raycast(ray, out distance);
         return ray.GetPoint(distance);
     }
-
-    public void RegisterRebound() => reboundCount++;
-    public int GetReboundCount() => reboundCount;
 
     void OnDrawGizmos()
     {

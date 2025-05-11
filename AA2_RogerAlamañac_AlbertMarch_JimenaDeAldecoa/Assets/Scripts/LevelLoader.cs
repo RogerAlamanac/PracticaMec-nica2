@@ -8,6 +8,10 @@ public class LevelLoader : MonoBehaviour
     public BallController ball;
     public Transform goal;
 
+    void Awake()
+    {
+        ball = FindObjectOfType<BallController>();
+    }
     void Update()
     {
         float distance = Vector3.Distance(ball.transform.position, goal.position);
@@ -19,7 +23,7 @@ public class LevelLoader : MonoBehaviour
             LoadNextLevel();
         }
 
-        if (ball.transform.position.y <= -5f)
+        if (ball.transform.position.y <= -5f || ball.reboundCount > ball.maxRebounds)
         {
             RestartPosition();
         }
