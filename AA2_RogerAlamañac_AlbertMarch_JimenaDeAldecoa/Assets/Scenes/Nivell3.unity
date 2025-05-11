@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -271,7 +271,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a1e820ca26d0ac43bbcaada5edae9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   material: 0
   center: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1, z: 1}
-  restitution: 0.8
+  restitution: 0.4
   friction: 0.5
   showGizmo: 1
 --- !u!1 &52142987
@@ -391,7 +391,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e916f04c1928baf43800df6f1ef01ba7, type: 2}
+  - {fileID: 2100000, guid: 5a1e820ca26d0ac43bbcaada5edae9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -493,7 +493,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e916f04c1928baf43800df6f1ef01ba7, type: 2}
+  - {fileID: 2100000, guid: 5a1e820ca26d0ac43bbcaada5edae9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -595,7 +595,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a1e820ca26d0ac43bbcaada5edae9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -780,6 +780,7 @@ MonoBehaviour:
   offset: {x: 6, y: 4, z: 0}
   smoothSpeed: 0.125
   rotationSpeed: 5
+  initialYaw: 90
 --- !u!1 &610295688
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 610295689}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -892,7 +893,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e916f04c1928baf43800df6f1ef01ba7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -976,7 +977,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a1e820ca26d0ac43bbcaada5edae9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1021,7 +1022,7 @@ MonoBehaviour:
   material: 0
   center: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1, z: 1}
-  restitution: 0.8
+  restitution: 0.4
   friction: 0.5
   showGizmo: 1
 --- !u!1 &1182968360
@@ -1309,7 +1310,6 @@ MonoBehaviour:
   area: 0.04
   airDensity: 1.2
   currentFriction: 0.4
-  maxDragDistance: 1
   velocity: {x: 0, y: 0, z: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   lastPosition: {x: 0, y: 0, z: 0}
@@ -1375,7 +1375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528336370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.64, y: 2, z: 0}
+  m_LocalPosition: {x: 8.5, y: 2, z: -6.5}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1436,7 +1436,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a1e820ca26d0ac43bbcaada5edae9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1481,7 +1481,7 @@ MonoBehaviour:
   material: 0
   center: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1, z: 1}
-  restitution: 0.8
+  restitution: 0.4
   friction: 0.5
   showGizmo: 1
 --- !u!1 &1686253705
@@ -1538,7 +1538,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a1e820ca26d0ac43bbcaada5edae9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1583,7 +1583,7 @@ MonoBehaviour:
   material: 0
   center: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1, z: 1}
-  restitution: 0.8
+  restitution: 0.4
   friction: 0.5
   showGizmo: 1
 --- !u!1 &1914118094
@@ -1822,8 +1822,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033482434}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.28, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8.5, y: -0.14, z: -8}
+  m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
