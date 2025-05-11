@@ -18,6 +18,11 @@ public class LevelLoader : MonoBehaviour
             Debug.Log("Nivell completat!");
             LoadNextLevel();
         }
+
+        if (ball.transform.position.y <= -5f)
+        {
+            RestartPosition();
+        }
     }
 
     void LoadNextLevel()
@@ -32,6 +37,15 @@ public class LevelLoader : MonoBehaviour
         else
         {
             Debug.Log("Has completat tots els nivells!");
+        }
+    }
+
+    void RestartPosition()
+    {
+        int restartScene = SceneManager.GetActiveScene().buildIndex;
+        if (restartScene < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(restartScene);
         }
     }
 }

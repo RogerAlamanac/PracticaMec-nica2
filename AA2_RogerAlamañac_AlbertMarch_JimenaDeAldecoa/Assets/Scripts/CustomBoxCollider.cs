@@ -6,7 +6,7 @@ public class CustomBoxCollider : MonoBehaviour
 {
     public enum MaterialType
     {
-        Wall,           // e = 0.8, µ = 0.5
+        Wall,           // e = 0.4, µ = 0.5
         Rubber,         // e = 0.8, quasi-elastic
         Foam,           // e = 0.2, inelastic
         SandInelastic,  // e = 0.2, µ = 0.6
@@ -65,8 +65,11 @@ public class CustomBoxCollider : MonoBehaviour
         switch (material)
         {
             case MaterialType.Rubber:
-            case MaterialType.Wall:
                 restitution = 0.8f;
+                friction = 0.5f;
+                break;
+            case MaterialType.Wall:
+                restitution = 0.4f;
                 friction = 0.5f;
                 break;
 

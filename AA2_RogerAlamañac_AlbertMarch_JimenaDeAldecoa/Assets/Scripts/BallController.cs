@@ -11,7 +11,7 @@ public class BallController : MonoBehaviour
     public float airDensity = 1.2f;
     public float currentFriction = 0.4f;
 
-    public float maxDragDistance = 1.0f;
+    private float maxDragDistance = 1.9f;
 
     public Vector3 velocity;
     public Vector3 angularVelocity;
@@ -41,6 +41,10 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
+        if(transform.position.y <= -5f)
+        {
+
+        }
         HandleInput();
         PhysicsManager.Instance.ApplyForces(this);
         lastPosition = transform.position;
